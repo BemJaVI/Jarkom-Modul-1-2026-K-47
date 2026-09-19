@@ -125,18 +125,30 @@ Hasil Tes Koneksi:
 Selain **Lain** yang dapat tersambung ke internet, Client juga harus bisa tersambung ke internet dengan konfigurasi,  
 tolong isi ya farrel
 
+Hasil Tes:  
+<img src="assets/Modul1_4Tes.png" width="450">  
 
 ### Soal 5
 tolong isi ya farrel
 
+Hasil Tes:   
+<img src="assets/Modul1_5Result.png" width="450">
 
 ### Soal 6
 tolong isi ya farrel
 
+Hasil Tes:  
+<img src="assets/Modul1_6.2.png" width="450">  
+<img src="assets/Modul1_6.3.png" width="450">  
+<img src="assets/Modul1_6.4.png" width="450">  
+<img src="assets/Modul1_6Result.png" width="450">
 
 ### Soal 7
 tolong isi ya farrel
 
+Hasil Tes:  
+<img src="assets/Modul1_7Result1.jpeg" width="450">  
+<img src="assets/Modul1_7Result2.jpeg" width="450">
 
 ### Soal 8
 1. Persiapkan file `knights_report.txt` di server **Knights**,
@@ -199,11 +211,15 @@ tolong isi ya farrel
    ```
    Cek packet dengan status upload (STOR), kode status sukses server (226), dan port data TCP yang dinegosiasikan pada mode PASV.
 
-Hasil Tes:
-<img src="assets/Modul1_2.1.png" width="450">
+Hasil Tes:  
+<img src="assets/Modul1_8wireshark.png" width="450">  
+<img src="assets/Modul1_8PSV.png" width="450">
 
 ### Soal 9
 
+
+Hasil Tes:  
+<img src="assets/Modul1_9Download.png" width="450">
 
 ### Soal 10
 tolong isi ya farrel
