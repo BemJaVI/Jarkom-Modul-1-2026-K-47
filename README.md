@@ -119,7 +119,8 @@ Setelah **Lain** tersambung ke internet, kita juga ingin tiap Client dapat terko
    ```
 
 Hasil Tes Koneksi:  
-<img src="assets/Modul1_3Tes.png" width="450">
+<img src="assets/Modul1_3Tes.png" width="450">  
+<img src="assets/Modul1_3Tess.png" width="450">
 
 ### Soal 4
 Selain **Lain** yang dapat tersambung ke internet, Client juga harus bisa tersambung ke internet dengan konfigurasi,  
