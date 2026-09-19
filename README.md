@@ -123,8 +123,20 @@ Hasil Tes Koneksi:
 <img src="assets/Modul1_3Tess.png" width="450">
 
 ### Soal 4
-Selain **Lain** yang dapat tersambung ke internet, Client juga harus bisa tersambung ke internet dengan konfigurasi,  
-tolong isi ya farrel
+1.Aktifkan IP Forwarding dan NAT di router Lain:
+```
+sysctl -w net.ipv4.ip_forward=1
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+2. Buka console masing-masing Client, lalu tambahkan DNS Resolver:
+```
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+```
+3. Cek konektivitas internet dengan melakukan ping ke IP Publik dan Domain Name System dari Client
+```
+ping -c 4 8.8.8.8
+ping -c 4 google.com
+```
 
 Hasil Tes:  
 <img src="assets/Modul1_4Tes.png" width="450">  
