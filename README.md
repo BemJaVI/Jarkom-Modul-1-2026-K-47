@@ -352,7 +352,20 @@ Hasil Tes:
 <img src="assets/Modul1_9Result.png" width="450">  
 
 ### Soal 10
-tolong isi ya farrel
+1. Buka Wireshark pada jalur koneksi Knights - Chisa, lalu gunakan filter `icmp`
+2. Eksekusi ping latensi dari node Knights menuju IP Chisa:
+```
+ping -c 77 -s 128 -i 0.3 <IP_Chisa>
+```
+Hasil Analisis:
+
+<img width="1600" height="967" alt="image" src="https://github.com/user-attachments/assets/7bcaa6cf-4832-4857-935d-9d9bb3dd91bb" />
+
+<img width="1600" height="967" alt="image" src="https://github.com/user-attachments/assets/6d905a29-d60d-450d-a798-b9571757104b" />
+
+ICMP Type & Code: Echo Request tercatat menggunakan Type: 8, Code: 0, sedangkan Echo Reply menggunakan Type: 0, Code: 0.
+
+Packet Loss & RTT: (Tuliskan nilai packet loss (misal 0%) dan nilai RTT (min/avg/max/mdev) yang tertera di baris akhir terminal Knights).
 
 ### Soal 11
 tolong isi ya farrel
