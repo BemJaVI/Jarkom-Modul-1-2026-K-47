@@ -200,7 +200,7 @@ tolong isi ya farrel
    Cek packet dengan status upload (STOR), kode status sukses server (226), dan port data TCP yang dinegosiasikan pada mode PASV.
 
 Hasil Tes:
-
+<img src="assets/Modul1_2.1.png" width="450">
 
 ### Soal 9
 
