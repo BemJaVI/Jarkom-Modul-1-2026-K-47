@@ -385,10 +385,46 @@ Hasil Analisis Wireshark:
 Kredensial terlihat jelas sebagai plain text. Setiap karakter terkirim dalam paket TCP yang terpisah karena Telnet beroperasi menggunakan Character Mode, di mana setiap input ketikan langsung dikirim ke server dan server merespons kembali (echo) ke layar client.
 
 ### Soal 12
-tolong isi ya farrel
+1. Buka Wireshark dan gunakan filter TCP Port:
+```
+ip.addr == <IP_NODE_KNIGHTS> && (tcp.port == 22 || tcp.port == 80 || tcp.port == 7777)
+```
+2. Lakukan pemindaian port dari node Alice ke node Knights:
+```
+nc -zv -w 2 <IP_NODE_KNIGHTS> 22
+nc -zv -w 2 <IP_NODE_KNIGHTS> 80
+nc -zv -w 2 <IP_NODE_KNIGHTS> 7777
+```
+Hasil Analisis TCP Flags:
+
+<img width="1600" height="968" alt="image" src="https://github.com/user-attachments/assets/ae28ec19-44a3-45be-a09d-d9b53c828ddb" />
+
+Port Terbuka (22 & 80): Server membalas paket inisiasi dengan flag [SYN, ACK].
+
+Port Tertutup (7777): Server langsung menolak koneksi karena tidak ada service yang berjalan, merespons dengan flag [RST, ACK].
 
 ### Soal 13
-tolong isi ya farrel
+1. Matikan autentikasi password dan aktifkan Pubkey di node Knights:
+```
+sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+killall sshd && /usr/sbin/sshd
+```
+2. Buat kunci rahasia (Keypair) di node Mika lalu tanamkan ke Knights:
+```
+ssh-keygen -t rsa
+ssh-copy-id mika_admin@<IP_KNIGHTS>
+```
+3. Uji login SSH dari node Mika ke Knights sambil menyadap dengan filter ssh di Wireshark:
+```
+ssh mika_admin@<IP_KNIGHTS>
+```
+Hasil Analisis Wireshark:
+
+<img width="1600" height="965" alt="image" src="https://github.com/user-attachments/assets/0bffeaaa-1279-45bd-9583-d1fbe28291c8" />
+
+Identifikasi Paket: Proses Protocol Version Exchange terjadi di awal, dilanjutkan dengan pembuatan kunci di Key Exchange Init.
+
+Keamanan Kredensial: Berbeda dengan Telnet, kredensial SSH aman karena autentikasi username/public key dilakukan setelah pembuatan saluran rahasia (Key Exchange), sehingga data dikirim dalam bentuk Encrypted packet.
 
 ### Soal 14
 1. Download file `wired_bruteforce.pcapng` dan buka di Wireshark
