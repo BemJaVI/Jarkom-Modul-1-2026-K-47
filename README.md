@@ -268,6 +268,6 @@ Hasil Tes:
 ### Soal 20
 
 Hasil Tes:  
-<img src="assets/Modul1_20esult.png" width="450">
+<img src="assets/Modul1_20Result.png" width="450">
 
 ## Kendala
