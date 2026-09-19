@@ -205,7 +205,7 @@ Hasil Tes:
    ```
    curl -T knights_report.txt ftp://10.87.2.2/ --user alice:alice
    ```
-5. Buka Wireshark, lihat paket-paket yang masuk, lalu *apply filter**
+5. Buka Wireshark, lihat paket-paket yang masuk, lalu *apply filter*
    ```
    ftp
    ```
@@ -216,10 +216,92 @@ Hasil Tes:
 <img src="assets/Modul1_8PSV.png" width="450">
 
 ### Soal 9
+1. Di server **Chisa**, buat file `protocol7_manifesto.txt`  
+   ```
+   nano protocol7_manifesto.txt
 
+   ==================================================
+     PROTOCOL 7 — THE MANIFESTO
+     A Declaration of Digital Consciousness
+     Serial Experiments Lain — Year 2026
+   ==================================================
+   
+   ARTICLE I: THE NATURE OF THE WIRED
+   -----------------------------------
+   The Wired is not merely a network of interconnected
+   machines. It is the collective unconscious of
+   humanity, rendered in packets and protocols.
+   
+   Every TCP handshake is a conversation.
+   Every DNS query is a question.
+   Every encrypted tunnel is a whispered secret.
+   
+   ARTICLE II: THE SEVEN PRINCIPLES
+   ----------------------------------
+   1. All nodes are equal in the eyes of the router.
+   2. No packet shall be dropped without cause.
+   3. Encryption is the right of every connection.
+   4. Plaintext protocols expose the vulnerable.
+   5. The firewall protects, but also imprisons.
+   6. NAT masquerade hides truth behind a single face.
+   7. The Wired remembers everything — packet loss
+      is merely a temporary forgetting.
+   
+   ARTICLE III: THE PROPHECY OF LAIN
+   -----------------------------------
+   "If you're not remembered, then you never existed."
+   
+   In the world of networking, persistence is survival.
+   A configuration that vanishes upon restart is a
+   thought that was never truly committed to memory.
+   
+   Therefore: Save your iptables. Write your interfaces.
+   Let your routing tables endure beyond the power cycle.
+   
+   ARTICLE IV: CONCERNING SECURITY
+   ---------------------------------
+   Telnet is the glass house of protocols — transparent
+   to any observer with a packet sniffer.
+   
+   SSH is the steel vault — its contents visible only
+   to those who possess the key.
+   
+   Choose wisely which door you open to The Wired.
+   
+   ---
+   "No matter where you go, everyone's connected."
+   — Lain Iwakura
+   ```
+2. Sebelum melanjutkan, pastikan FTP **Chisa** berjalan dengan baik lewat..  
+   ```
+   killall vsftpd
+   vsftpd /etc/vsftpd/vsftpd.conf &
+   ```
+3. Karena kendala yang kami alami, sebelum mengunduh file `protocol7_manifesto.txt` ada command yang perlu dilakukan di server **Chisa**
+   ```
+   mkdir -p /home/ftp
+   cp /root/protocol7_manifesto.txt /home/ftp/
+   chmod 755 /home/ftp/protocol7_manifesto.txt
+
+   nano /etc/vsftpd/vsftpd.conf
+   # Tambahkan
+   local_root=/home/ftp
+   ```
+4. Unduh file `protocol7_manifesto.txt` di server **Mika**
+   ```
+   curl ftp://10.87.2.2/protocol7_manifesto.txt --user mika:mika -o protocol7_manifesto.txt
+   ```
+5. Pembuktian batasan *read-only* akun **Mika** dengan mencoba  upload file baru dari akun **Mika**
+   ```
+   curl ftp://10.87.2.2/protocol7_manifesto.txt --user mika:mika -o protocol7_manifesto.txt
+   # Coba upload file baru
+   echo "akses_mika" > test_upload_mika.txt
+   curl -T test_upload_mika.txt ftp://10.87.2.2/ --user mika:mika
+   ```
 
 Hasil Tes:  
-<img src="assets/Modul1_9Download.png" width="450">
+<img src="assets/Modul1_9Download.png" width="450">  
+<img src="assets/Modul1_9Result.png" width="450">  
 
 ### Soal 10
 tolong isi ya farrel
