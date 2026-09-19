@@ -348,25 +348,57 @@ Hasil Tes:
 Hasil Tes:  
 <img src="assets/Modul1_16Result.png" width="450">
 
-
 ### Soal 17
+1. Download file `wired_http_c2.pcap` dan buka di Wireshark
+2. Apply filter `http.request.method == "GET"`
+3. Pilih packet berisi `GET > Cek Packet Details`, temukan IP Server Attacker
+4. Buka Hypertext Transfer Protocol, temukan domain tempat malware diunduh
+5. Cari file berakhiran `.exe`, temukan nama file malware
+6. Masih di file malware, Follow > HTTP Stream pada packet GET untuk menemukan kode status HTTP
+7. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3404`
 
 Hasil Tes:  
 <img src="assets/Modul1_17Result.png" width="450">
 
 ### Soal 18
+1. Download file `wired_smb_transfer.pcapng` dan buka di Wireshark
+2. Apply filter `smb` atau `smb2`, temukan nama protokol yang dieksploitasi  
+3. Cek paket berstatus `Create Request` atau `Write Request`, temukan IP pengirim dan IP penerima  
+4. Buka paket Create Req > SMB2 > SMB2 Header > Create Request, temukan nama file malware dan folder penyimpanannya
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3405`
 
 Hasil Tes:  
 <img src="assets/Modul1_18Result.png" width="450">
 
 ### Soal 19
+1. Download file `wired_smtp_threat.pcap` dan buka di Wireshark
+2. Apply filter `smtp`
+3. Pilih paket berisi DATA atau Subject > Follow > TCP Stream, temukan email korban
+4. Cari paket ber-Subject ancaman > Follow > TCP Stream, temukan password korban, jenis malware, due date threat, dan MailClientID
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3406`
 
 Hasil Tes:  
 <img src="assets/Modul1_19Result.png" width="450">
 
 ### Soal 20
+1. Download file `wired_tls_decrypt.pcapng` dan buka di Wireshark
+2. Download file `.keyslog`
+3. Di Wireshark pilih Edit > Preferences > Protocol > TLS > File `.keyslog`
+4. Apply filter `tls.handshake.type == 1`
+5. Cari paket berstatus `Client Hello` > Transport Layer Security > TLS Record Layer > Handshake Protocol > Extension: Server Name, temukan nama domain yang diakses beserta IP HTTPS Attacker
+6. Hapus filter, cari paket berstatus `Server Hello`, temukan versi protokol TLS
+7. Apply filter `http`
+8. Cari paket berstatus `Request HTTP` ke IP Attacker > Follow > HTTP Stream, temukan User-Agent yang digunakan, HTTP request method, dan path yang tersembunyi di deskripsi
+9. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3407`
 
 Hasil Tes:  
 <img src="assets/Modul1_20Result.png" width="450">
 
 ## Kendala
+1. Sempat stuck dalam pengerjaan nomor 6 karena kesalahan saat Install dan Setup GNS3 Dekstop  
+2. Sempat kendala di konfigurasi Client sehingga tidak bisa berkomunikasi dengan Client lain
+3. Sempat kendala di konfigurasi Client no.7 sehingga akses Client tidak sesuai permintaan soal
+4. Banyak command baru yang digunakan selama praktikum sehingga masih sering bingung saat penggunaannya
+5. lanjutin kalo ada
+
+## Revisi
