@@ -236,24 +236,38 @@ tolong isi ya farrel
 ### Soal 14
 
 
+Hasil Tes:  
+<img src="assets/Modul1_14Result.png" width="450">
+
 ### Soal 15
 
+Hasil Tes:  
+<img src="assets/Modul1_15Result.png" width="450">
 
 ### Soal 16
+
+Hasil Tes:  
+<img src="assets/Modul1_16Result.png" width="450">
 
 
 ### Soal 17
 
-
+Hasil Tes:  
+<img src="assets/Modul1_17Result.png" width="450">
 
 ### Soal 18
 
+Hasil Tes:  
+<img src="assets/Modul1_18Result.png" width="450">
 
 ### Soal 19
 
-
+Hasil Tes:  
+<img src="assets/Modul1_19Result.png" width="450">
 
 ### Soal 20
 
+Hasil Tes:  
+<img src="assets/Modul1_20esult.png" width="450">
 
 ## Kendala
