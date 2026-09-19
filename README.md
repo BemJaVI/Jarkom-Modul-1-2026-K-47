@@ -70,8 +70,155 @@ iface eth0 inet static
     gateway 10.87.3.1
 ```
 
+Hasil topologi:
+[img topologi]
+
 ### Soal 2
-Untuk menyambungkan **Lain** ke internet,  
+Untuk menyambungkan **Lain** ke internet tambahkan config ini sebagai command,  
+```
+sysctl -w net.ipv4.ip_forward=1
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+ping 8.8.8.8 # tes internet
+```
+Command ini juga dapat dilakukan tiap ingin mengaktifkan internet **Lain**
+
+### Soal 3
+Setelah **Lain** tersambung ke internet, kita juga ingin tiap Client dapat terkoneksi dan berkomunikasi satu sama lain dengan,  
+1. Aktifkan internet **Lain**
+   ```
+   sysctl -w net.ipv4.ip_forward=1
+   iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+   ```
+2. Buka console masing-masing Client, lalu tambahkan DNS Resolver:
+   ```
+   echo "nameserver 8.8.8.8" > /etc/resolv.conf
+   ```
+3. Cek IP Node Client lain dengan `ip a`, lalu tes koneksi:
+   **Node Alice** -> **Node Chisa**  
+   ```
+   ping 10.87.2.2
+   ```
+
+Hasil Tes Koneksi:
+
+
+### Soal 4
+Selain **Lain** yang dapat tersambung ke internet, Client juga harus bisa tersambung ke internet dengan konfigurasi,  
+tolong isi ya farrel
+
+
+### Soal 5
+tolong isi ya farrel
+
+
+### Soal 6
+tolong isi ya farrel
+
+
+### Soal 7
+tolong isi ya farrel
+
+
+### Soal 8
+1. Persiapkan file `knights_report.txt` di server **Knights**,
+   ```
+   nano knights_report.txt
+   
+   ==================================================
+     KNIGHTS OF THE EASTERN CALCULUS — STATUS REPORT
+     Protocol 7 Surveillance Network
+     Classification: LEVEL 7 — EYES ONLY
+   ==================================================
+   
+   Date: [CLASSIFIED]
+   Agent: Knights Unit Alpha
+   Node: Switch 3 — Subnet 10.<PREFIX>.3.0/24
+   
+   ---
+   
+   SUBJECT: Network Reconnaissance Report
+   
+   The Wired has been successfully infiltrated through
+   Protocol 7 channels. Current observations:
+   
+   1. Router "Lain" has been identified as the central
+      gateway node connecting all three subnet segments.
+   
+   2. Switch 1 (10.<PREFIX>.1.0/24) hosts Alice and Mika.
+      Both nodes show standard traffic patterns.
+   
+   3. Switch 2 (10.<PREFIX>.2.0/24) hosts Chisa alone.
+      Isolated subnet — minimal cross-traffic observed.
+   
+   4. Switch 3 (10.<PREFIX>.3.0/24) — our operational base.
+      Knights and Eiri coexist on this segment.
+   
+   RECOMMENDATION:
+   Continue monitoring FTP and Telnet sessions for
+   plaintext credential exposure. SSH tunnels remain
+   impenetrable without keylog access.
+   
+   --- END OF REPORT ---
+   Knights of the Eastern Calculus
+   "Let's all love Lain."
+   ```
+2. Masuk ke server **Chisa**, atur konfigurasi FTP agar bisa menerima dan upload file  
+   ```
+   nano /etc/vsftpd/vsftpd.conf
+   # Tambahkan
+   write_enable=YES
+   allow_writeable_chroot=YES
+   ```
+3. Ke GNS3, Start capture dan Open Wireshark di kabel Lain-Switch 2
+4. Kembali ke server **Chisa**, upload file dari **Knights** ke **Chisa** menggunakan akun **Alice**
+   ```
+   curl -T knights_report.txt ftp://10.87.2.2/ --user alice:alice
+   ```
+5. Buka Wireshark, lihat paket-paket yang masuk, lalu *apply filter**
+   ```
+   ftp
+   ```
+   Cek packet dengan status upload (STOR), kode status sukses server (226), dan port data TCP yang dinegosiasikan pada mode PASV.
+
+Hasil Tes:
+
+
+### Soal 9
+
+
+### Soal 10
+tolong isi ya farrel
+
+### Soal 11
+tolong isi ya farrel
+
+### Soal 12
+tolong isi ya farrel
+
+### Soal 13
+tolong isi ya farrel
+
+### Soal 14
+
+
+### Soal 15
+
+
+### Soal 16
+
+
+### Soal 17
+
+
+
+### Soal 18
+
+
+### Soal 19
+
+
+
+### Soal 20
 
 
 ## Kendala
