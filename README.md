@@ -22,7 +22,23 @@ Pengerjaan praktikum ini dilakukan di GNS3 Web Client dan GNS3 Dekstop dengan IP
 
 #### Router
 ```
- 
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+    address 10.87.1.1
+    netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+    address 10.87.2.1
+    netmask 255.255.255.0
+
+auto eth3
+iface eth3 inet static
+    address 10.87.3.1
+    netmask 255.255.255.0
 ```
 
 #### Client Alice
