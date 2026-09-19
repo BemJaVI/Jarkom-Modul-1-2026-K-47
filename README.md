@@ -316,17 +316,34 @@ tolong isi ya farrel
 tolong isi ya farrel
 
 ### Soal 14
-
+1. Download file `wired_bruteforce.pcapng` dan buka di Wireshark
+2. Apply filter `http`
+3. Cari paket dengan **status request login** dan berstatus **POST**, temukan dan catat IP Attacker dan IP beserta Port Victim  
+4. Cari paket dengan user `lain_admin`, buka Hypertext Transfer Protocol > HTML Form URL Encoded, catat password, web server software, dan versinya
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3401`
 
 Hasil Tes:  
 <img src="assets/Modul1_14Result.png" width="450">
 
 ### Soal 15
+1. Download file `wired_usb_hid.pcap` dan buka di Wireshark
+2. Apply filter `usb`
+3. Cari paket berjenis GET DESCRIPTOR > USB Device Decriptor, temukan Vendor ID, Product ID, Nomor device USB
+4. Temukan secret message lewat cek nilai byte ke-3 tiap paket bagian `Leftover Capture Data`, susun dan translate menjadi suatu kalimat
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3402`
 
 Hasil Tes:  
 <img src="assets/Modul1_15Result.png" width="450">
 
 ### Soal 16
+1. Download file `wired_ftp_theft.pcap` dan buka di Wireshark
+2. Apply filter `ftp || ftp-data`
+3. Cari IP Attacker dengan Target dengan melihat isi paket file yang mencurigakan
+4. Cari Banner Software FTP dengan cek paket berstatus `Welcome to...`
+5. Cek kredensial login Attacker dari upaya login mencurigakan
+6. Apply filter `tcp.port == [port_data_ftp]`
+7. Cek size in bytes file malware dari paket berstatus `SIZE`
+8. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3403`
 
 Hasil Tes:  
 <img src="assets/Modul1_16Result.png" width="450">
