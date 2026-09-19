@@ -205,7 +205,7 @@ Hasil Tes:
    ```
    curl -T knights_report.txt ftp://10.87.2.2/ --user alice:alice
    ```
-5. Buka Wireshark, lihat paket-paket yang masuk, lalu *apply filter**
+5. Buka Wireshark, lihat paket-paket yang masuk, lalu *apply filter*
    ```
    ftp
    ```
@@ -216,10 +216,92 @@ Hasil Tes:
 <img src="assets/Modul1_8PSV.png" width="450">
 
 ### Soal 9
+1. Di server **Chisa**, buat file `protocol7_manifesto.txt`  
+   ```
+   nano protocol7_manifesto.txt
 
+   ==================================================
+     PROTOCOL 7 — THE MANIFESTO
+     A Declaration of Digital Consciousness
+     Serial Experiments Lain — Year 2026
+   ==================================================
+   
+   ARTICLE I: THE NATURE OF THE WIRED
+   -----------------------------------
+   The Wired is not merely a network of interconnected
+   machines. It is the collective unconscious of
+   humanity, rendered in packets and protocols.
+   
+   Every TCP handshake is a conversation.
+   Every DNS query is a question.
+   Every encrypted tunnel is a whispered secret.
+   
+   ARTICLE II: THE SEVEN PRINCIPLES
+   ----------------------------------
+   1. All nodes are equal in the eyes of the router.
+   2. No packet shall be dropped without cause.
+   3. Encryption is the right of every connection.
+   4. Plaintext protocols expose the vulnerable.
+   5. The firewall protects, but also imprisons.
+   6. NAT masquerade hides truth behind a single face.
+   7. The Wired remembers everything — packet loss
+      is merely a temporary forgetting.
+   
+   ARTICLE III: THE PROPHECY OF LAIN
+   -----------------------------------
+   "If you're not remembered, then you never existed."
+   
+   In the world of networking, persistence is survival.
+   A configuration that vanishes upon restart is a
+   thought that was never truly committed to memory.
+   
+   Therefore: Save your iptables. Write your interfaces.
+   Let your routing tables endure beyond the power cycle.
+   
+   ARTICLE IV: CONCERNING SECURITY
+   ---------------------------------
+   Telnet is the glass house of protocols — transparent
+   to any observer with a packet sniffer.
+   
+   SSH is the steel vault — its contents visible only
+   to those who possess the key.
+   
+   Choose wisely which door you open to The Wired.
+   
+   ---
+   "No matter where you go, everyone's connected."
+   — Lain Iwakura
+   ```
+2. Sebelum melanjutkan, pastikan FTP **Chisa** berjalan dengan baik lewat..  
+   ```
+   killall vsftpd
+   vsftpd /etc/vsftpd/vsftpd.conf &
+   ```
+3. Karena kendala yang kami alami, sebelum mengunduh file `protocol7_manifesto.txt` ada command yang perlu dilakukan di server **Chisa**
+   ```
+   mkdir -p /home/ftp
+   cp /root/protocol7_manifesto.txt /home/ftp/
+   chmod 755 /home/ftp/protocol7_manifesto.txt
+
+   nano /etc/vsftpd/vsftpd.conf
+   # Tambahkan
+   local_root=/home/ftp
+   ```
+4. Unduh file `protocol7_manifesto.txt` di server **Mika**
+   ```
+   curl ftp://10.87.2.2/protocol7_manifesto.txt --user mika:mika -o protocol7_manifesto.txt
+   ```
+5. Pembuktian batasan *read-only* akun **Mika** dengan mencoba  upload file baru dari akun **Mika**
+   ```
+   curl ftp://10.87.2.2/protocol7_manifesto.txt --user mika:mika -o protocol7_manifesto.txt
+   # Coba upload file baru
+   echo "akses_mika" > test_upload_mika.txt
+   curl -T test_upload_mika.txt ftp://10.87.2.2/ --user mika:mika
+   ```
 
 Hasil Tes:  
-<img src="assets/Modul1_9Download.png" width="450">
+<img src="assets/Modul1_9Download.png" width="450">  
+<img src="assets/Modul1_9Result.png" width="450">  
 
 ### Soal 10
 tolong isi ya farrel
@@ -234,26 +316,89 @@ tolong isi ya farrel
 tolong isi ya farrel
 
 ### Soal 14
+1. Download file `wired_bruteforce.pcapng` dan buka di Wireshark
+2. Apply filter `http`
+3. Cari paket dengan **status request login** dan berstatus **POST**, temukan dan catat IP Attacker dan IP beserta Port Victim  
+4. Cari paket dengan user `lain_admin`, buka Hypertext Transfer Protocol > HTML Form URL Encoded, catat password, web server software, dan versinya
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3401`
 
+Hasil Tes:  
+<img src="assets/Modul1_14Result.png" width="450">
 
 ### Soal 15
+1. Download file `wired_usb_hid.pcap` dan buka di Wireshark
+2. Apply filter `usb`
+3. Cari paket berjenis GET DESCRIPTOR > USB Device Decriptor, temukan Vendor ID, Product ID, Nomor device USB
+4. Temukan secret message lewat cek nilai byte ke-3 tiap paket bagian `Leftover Capture Data`, susun dan translate menjadi suatu kalimat
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3402`
 
+Hasil Tes:  
+<img src="assets/Modul1_15Result.png" width="450">
 
 ### Soal 16
+1. Download file `wired_ftp_theft.pcap` dan buka di Wireshark
+2. Apply filter `ftp || ftp-data`
+3. Cari IP Attacker dengan Target dengan melihat isi paket file yang mencurigakan
+4. Cari Banner Software FTP dengan cek paket berstatus `Welcome to...`
+5. Cek kredensial login Attacker dari upaya login mencurigakan
+6. Apply filter `tcp.port == [port_data_ftp]`
+7. Cek size in bytes file malware dari paket berstatus `SIZE`
+8. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3403`
 
+Hasil Tes:  
+<img src="assets/Modul1_16Result.png" width="450">
 
 ### Soal 17
+1. Download file `wired_http_c2.pcap` dan buka di Wireshark
+2. Apply filter `http.request.method == "GET"`
+3. Pilih packet berisi `GET > Cek Packet Details`, temukan IP Server Attacker
+4. Buka Hypertext Transfer Protocol, temukan domain tempat malware diunduh
+5. Cari file berakhiran `.exe`, temukan nama file malware
+6. Masih di file malware, Follow > HTTP Stream pada packet GET untuk menemukan kode status HTTP
+7. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3404`
 
-
+Hasil Tes:  
+<img src="assets/Modul1_17Result.png" width="450">
 
 ### Soal 18
+1. Download file `wired_smb_transfer.pcapng` dan buka di Wireshark
+2. Apply filter `smb` atau `smb2`, temukan nama protokol yang dieksploitasi  
+3. Cek paket berstatus `Create Request` atau `Write Request`, temukan IP pengirim dan IP penerima  
+4. Buka paket Create Req > SMB2 > SMB2 Header > Create Request, temukan nama file malware dan folder penyimpanannya
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3405`
 
+Hasil Tes:  
+<img src="assets/Modul1_18Result.png" width="450">
 
 ### Soal 19
+1. Download file `wired_smtp_threat.pcap` dan buka di Wireshark
+2. Apply filter `smtp`
+3. Pilih paket berisi DATA atau Subject > Follow > TCP Stream, temukan email korban
+4. Cari paket ber-Subject ancaman > Follow > TCP Stream, temukan password korban, jenis malware, due date threat, dan MailClientID
+5. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3406`
 
-
+Hasil Tes:  
+<img src="assets/Modul1_19Result.png" width="450">
 
 ### Soal 20
+1. Download file `wired_tls_decrypt.pcapng` dan buka di Wireshark
+2. Download file `.keyslog`
+3. Di Wireshark pilih Edit > Preferences > Protocol > TLS > File `.keyslog`
+4. Apply filter `tls.handshake.type == 1`
+5. Cari paket berstatus `Client Hello` > Transport Layer Security > TLS Record Layer > Handshake Protocol > Extension: Server Name, temukan nama domain yang diakses beserta IP HTTPS Attacker
+6. Hapus filter, cari paket berstatus `Server Hello`, temukan versi protokol TLS
+7. Apply filter `http`
+8. Cari paket berstatus `Request HTTP` ke IP Attacker > Follow > HTTP Stream, temukan User-Agent yang digunakan, HTTP request method, dan path yang tersembunyi di deskripsi
+9. Buka terminal, lalu validasi temuannya di `nc 10.4.89.250 3407`
 
+Hasil Tes:  
+<img src="assets/Modul1_20Result.png" width="450">
 
 ## Kendala
+1. Sempat stuck dalam pengerjaan nomor 6 karena kesalahan saat Install dan Setup GNS3 Dekstop  
+2. Sempat kendala di konfigurasi Client sehingga tidak bisa berkomunikasi dengan Client lain
+3. Sempat kendala di konfigurasi Client no.7 sehingga akses Client tidak sesuai permintaan soal
+4. Banyak command baru yang digunakan selama praktikum sehingga masih sering bingung saat penggunaannya
+5. lanjutin kalo ada
+
+## Revisi
