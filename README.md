@@ -130,7 +130,29 @@ Hasil Tes:
 <img src="assets/Modul1_4Tes.png" width="450">  
 
 ### Soal 5
-tolong isi ya farrel
+1. Simpan konfigurasi iptables agar berjalan otomatis saat booting di node Lain:
+```
+/etc/init.d/iptables save
+rc-update add iptables default
+```
+2. Buat script verifikasi di /root/cek_status.sh menggunakan perintah cat:
+```
+cat << 'EOF' > /root/cek_status.sh
+#!/bin/sh
+ip -br a
+iptables -t nat -L -v -n
+EOF
+```
+3. Beri hak akses eksekusi pada script, lalu simpan state Alpine agar permanen:
+```
+chmod +x /root/cek_status.sh
+lbu commit -d
+```
+4. Lakukan reboot, lalu cek status konfigurasi:
+```
+reboot
+/root/cek_status.sh
+```
 
 Hasil Tes:   
 <img src="assets/Modul1_5Result.png" width="450">
@@ -145,8 +167,33 @@ Hasil Tes:
 <img src="assets/Modul1_6Result.png" width="450">
 
 ### Soal 7
-tolong isi ya farrel
-
+1. Install vsftpd, buat folder, dan daftarkan user beserta password default di node Chisa:
+```
+apk update && apk add vsftpd
+mkdir -p /var/wired/data && chmod 777 /var/wired/data
+adduser -D alice && echo "alice:12345" | chpasswd
+adduser -D mika && echo "mika:12345" | chpasswd
+adduser -D eiri && echo "eiri:12345" | chpasswd
+```
+2. Konfigurasi vsftpd.conf dan terapkan kebijakan hak akses (User_conf & Deny list):
+```
+echo "eiri" > /etc/vsftpd.user_list
+mkdir -p /etc/vsftpd/user_conf
+echo "write_enable=YES" > /etc/vsftpd/user_conf/alice
+echo "write_enable=NO" > /etc/vsftpd/user_conf/mika
+/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf &
+```
+3.Lakukan pengetesan akses Alice (Read & Write) dari Node Client:
+```
+touch signal_alice.txt
+ftp <IP_NODE_CHISA>
+# Login sebagai alice, lalu jalankan: put signal_alice.txt
+```
+4. Lakukan pengetesan akses Eiri (Blacklist) dari Node Client:
+```
+ftp <IP_NODE_CHISA>
+# Login sebagai eiri
+```
 Hasil Tes:  
 <img src="assets/Modul1_7Result1.jpeg" width="450">  
 <img src="assets/Modul1_7Result2.jpeg" width="450">
