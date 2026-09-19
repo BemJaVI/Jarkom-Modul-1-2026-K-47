@@ -368,7 +368,21 @@ ICMP Type & Code: Echo Request tercatat menggunakan Type: 8, Code: 0, sedangkan 
 Packet Loss & RTT: (Tuliskan nilai packet loss (misal 0%) dan nilai RTT (min/avg/max/mdev) yang tertera di baris akhir terminal Knights).
 
 ### Soal 11
-tolong isi ya farrel
+1. Buat user target dan aktifkan Telnet Server di node Chisa:
+```
+adduser -D phantom_user && echo "phantom_user:wired_ghost" | chpasswd
+telnetd
+```
+2. Buka Wireshark dengan filter telnet, lalu lakukan koneksi dari node Eiri:
+```
+telnet <IP_NODE_CHISA>
+# Login dengan akun phantom_user dan password wired_ghost
+```
+Hasil Analisis Wireshark:
+
+<img width="1600" height="962" alt="image" src="https://github.com/user-attachments/assets/6d34018c-ce86-47cd-882f-6a43f0220eca" />
+
+Kredensial terlihat jelas sebagai plain text. Setiap karakter terkirim dalam paket TCP yang terpisah karena Telnet beroperasi menggunakan Character Mode, di mana setiap input ketikan langsung dikirim ke server dan server merespons kembali (echo) ke layar client.
 
 ### Soal 12
 tolong isi ya farrel
