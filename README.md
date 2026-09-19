@@ -86,8 +86,8 @@ iface eth0 inet static
     gateway 10.87.3.1
 ```
 
-Hasil topologi:
-[img topologi]
+Hasil topologi:  
+<img src="assets/Modul1_Topologi.png" width="450">
 
 ### Soal 2
 Untuk menyambungkan **Lain** ke internet tambahkan config ini sebagai command,  
@@ -96,7 +96,10 @@ sysctl -w net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 ping 8.8.8.8 # tes internet
 ```
-Command ini juga dapat dilakukan tiap ingin mengaktifkan internet **Lain**
+Command ini juga dapat dilakukan tiap ingin mengaktifkan internet **Lain**  
+Hasil Tes:  
+<img src="assets/Modul1_2.1.png" width="450">  
+<img src="assets/Modul1_2.2.png" width="450">
 
 ### Soal 3
 Setelah **Lain** tersambung ke internet, kita juga ingin tiap Client dapat terkoneksi dan berkomunikasi satu sama lain dengan,  
@@ -115,8 +118,8 @@ Setelah **Lain** tersambung ke internet, kita juga ingin tiap Client dapat terko
    ping 10.87.2.2
    ```
 
-Hasil Tes Koneksi:
-
+Hasil Tes Koneksi:  
+<img src="assets/Modul1_3Tes.png" width="450">
 
 ### Soal 4
 Selain **Lain** yang dapat tersambung ke internet, Client juga harus bisa tersambung ke internet dengan konfigurasi,  
