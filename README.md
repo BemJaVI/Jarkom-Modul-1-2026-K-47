@@ -566,7 +566,7 @@ Hasil Tes:
 
 
 ### soal 11
-command yang harus dilakukan:
+Command yang harus dilakukan:
 1. Pada Node Chisa (Menjalankan ulang Telnet Server):
 ```
 killall telnetd
@@ -590,3 +590,58 @@ Analisis:
 Berdasarkan tangkapan TCP Stream dari Wireshark, terbukti bahwa protokol Telnet sangat tidak aman karena mengirimkan username dan password (phantom_user dan wired_ghost) dalam bentuk plain text (teks terbuka) tanpa enkripsi sama sekali.
 
 Teks yang dikirimkan seringkali terlihat terpisah atau ganda karena Telnet beroperasi menggunakan Character Mode. Setiap kali ada karakter yang diinputkan oleh client (warna merah), karakter tersebut langsung dikirim dalam satu paket TCP, dan server akan merespons dengan menampilkan kembali karakter tersebut di layar client (warna biru).
+
+### Soal 13
+Comannd yang dilakukan:
+1. Pada Node Knights (Mematikan autentikasi password):
+```
+sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+killall sshd && /usr/sbin/sshd
+```
+2. pada node mika (Membuat dan menanamkan kunci SSH ke Knights):
+```
+ssh-keygen -t rsa
+ssh-copy-id mika_admin@10.87.3.2
+```
+3. 1. kalau ketika ssh di node chisa permission denied Pada Node Knights (nyalakan autentikasi password):
+
+<img width="1101" height="530" alt="image" src="https://github.com/user-attachments/assets/9039627f-0b55-4312-ac29-852fa3d79f3a" />
+
+```
+ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+killall sshd && /usr/sbin/sshd
+```
+3. 2 . pada node mika (Membuat dan menanamkan kunci SSH ke Knights):
+```
+ssh-keygen -t rsa
+ssh-copy-id mika_admin@10.87.3.2
+```
+lakukan login pakai password mika
+
+<img width="1104" height="207" alt="image" src="https://github.com/user-attachments/assets/4521d8bd-9bda-492d-bb47-aafb88f22a0c" />
+
+3. 3.  Pada Node Knights (Mematikan lagi autentikasi password):
+```
+sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+killall sshd && /usr/sbin/sshd
+```
+
+<img width="887" height="234" alt="image" src="https://github.com/user-attachments/assets/f26080f4-ed9a-4b6b-9c3f-5b5dd4eda47d" />
+
+4. Pada Node Mika (Menguji login SSH tanpa password sambil menyalakan Wireshark):
+```
+ssh mika_admin@10.87.3.2
+```
+
+<img width="739" height="474" alt="image" src="https://github.com/user-attachments/assets/8417a6f8-28f5-4318-a139-5e376dc70bfb" />
+
+Hasil yang muncul:
+
+<img width="1919" height="1153" alt="image" src="https://github.com/user-attachments/assets/3b4dda5a-de4b-4791-87c3-6bd3fe58b7d2" />
+
+Analisis:
+Berdasarkan tangkapan dari Wireshark saat memulai koneksi SSH, terdapat dua proses penting di awal:
+
+Protocol Version Exchange: Terlihat bahwa klien dan server saling bertukar versi protokol (seperti SSH-2.0-OpenSSH) dalam bentuk plain text (teks terbuka). Hal ini dilakukan di awal agar kedua belah pihak dapat menegosiasikan kompatibilitas algoritma enkripsi sebelum komunikasi diamankan.
+
+Key Exchange (KEX) Init: Setelah versi disepakati, terjadi pertukaran kunci menggunakan algoritma seperti Diffie-Hellman. Proses ini bertujuan untuk menciptakan shared secret key (kunci sesi rahasia) secara aman. Kunci sesi inilah yang selanjutnya digunakan untuk mengenkripsi seluruh jalur komunikasi. Karena proses autentikasi (seperti pengiriman public key milik user) dilakukan setelah Key Exchange selesai, seluruh data login menjadi terenkripsi dan aman dari penyadapan.
