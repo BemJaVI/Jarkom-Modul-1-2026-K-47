@@ -11,7 +11,7 @@ Pengerjaan praktikum ini dilakukan di GNS3 Web Client dan GNS3 Dekstop dengan IP
 2. Masuk ke project sesuai kelompok yang sudah disediakan
 3. Mulai pengerjaan soal
    
-### Soal 1
+### Soal 1 - Farrel & Elisabeth
 1. Persiapkan NAT1 sebagai sumber internet
 2. Persiapkan Router tersambung ke NAT1, beri nama dengan *change hostname* -> **Lain**
 3. Buat 3 Switch yang tersambung ke **Lain** dengan nama **Switch 1**, **Switch 2**, dan **Switch 3**
@@ -89,7 +89,7 @@ iface eth0 inet static
 Hasil topologi:  
 <img src="assets/Modul1_Topologi.png" width="450">
 
-### Soal 2
+### Soal 2 - Farrel & Elisabeth
 Untuk menyambungkan **Lain** ke internet tambahkan config ini sebagai command,  
 ```
 sysctl -w net.ipv4.ip_forward=1
@@ -101,7 +101,7 @@ Hasil Tes:
 <img src="assets/Modul1_2.1.png" width="450">  
 <img src="assets/Modul1_2.2.png" width="450">
 
-### Soal 3
+### Soal 3 - Elisabeth
 Setelah **Lain** tersambung ke internet, kita juga ingin tiap Client dapat terkoneksi dan berkomunikasi satu sama lain dengan,  
 1. Aktifkan internet **Lain**
    ```
@@ -121,8 +121,8 @@ Setelah **Lain** tersambung ke internet, kita juga ingin tiap Client dapat terko
 Hasil Tes Koneksi:  
 <img src="assets/Modul1_3Tes.png" width="450">  
 <img src="assets/Modul1_3Tess.png" width="450">
-
-### Soal 4
+ 
+### Soal 4 - Elisabeth
 1.Aktifkan IP Forwarding dan NAT di router Lain:
 ```
 sysctl -w net.ipv4.ip_forward=1
@@ -141,7 +141,7 @@ ping -c 4 google.com
 Hasil Tes:  
 <img src="assets/Modul1_4Tes.png" width="450">  
 
-### Soal 5
+### Soal 5 - Farrel
 1. Simpan konfigurasi iptables agar berjalan otomatis saat booting di node Lain:
 ```
 /etc/init.d/iptables save
@@ -169,7 +169,7 @@ reboot
 Hasil Tes:   
 <img src="assets/Modul1_5Result.png" width="450">
 
-### Soal 6
+### Soal 6 - Elisabeth
 1. Buka server **Mika**
 2. Tambahkan file `traffic_generator.sh`
    ```
@@ -215,7 +215,7 @@ Hasil Tes:
 <img src="assets/Modul1_6.4.png" width="450">  
 <img src="assets/Modul1_6Result.png" width="450">
 
-### Soal 7
+### Soal 7 - Farrel
 1. Install vsftpd, buat folder, dan daftarkan user beserta password default di node Chisa:
 ```
 apk update && apk add vsftpd
@@ -247,7 +247,7 @@ Hasil Tes:
 <img src="assets/Modul1_7Result1.jpeg" width="450">  
 <img src="assets/Modul1_7Result2.jpeg" width="450">
 
-### Soal 8
+### Soal 8 - Elisabeth
 1. Persiapkan file `knights_report.txt` di server **Knights**,
    ```
    nano knights_report.txt
@@ -312,7 +312,7 @@ Hasil Tes:
 <img src="assets/Modul1_8wireshark.png" width="450">  
 <img src="assets/Modul1_8PSV.png" width="450">
 
-### Soal 9
+### Soal 9 - Elisabeth
 1. Di server **Chisa**, buat file `protocol7_manifesto.txt`  
    ```
    nano protocol7_manifesto.txt
@@ -400,7 +400,7 @@ Hasil Tes:
 <img src="assets/Modul1_9Download.png" width="450">  
 <img src="assets/Modul1_9Result.png" width="450">  
 
-### Soal 10
+### Soal 10 - Farrel
 1. Buka Wireshark pada jalur koneksi Knights - Chisa, lalu gunakan filter `icmp`
 2. Eksekusi ping latensi dari node Knights menuju IP Chisa:
 ```
@@ -416,7 +416,7 @@ ICMP Type & Code: Echo Request tercatat menggunakan Type: 8, Code: 0, sedangkan 
 
 Packet Loss & RTT: (Tuliskan nilai packet loss (misal 0%) dan nilai RTT (min/avg/max/mdev) yang tertera di baris akhir terminal Knights).
 
-### Soal 11
+### Soal 11 - Farrel
 1. Buat user target dan aktifkan Telnet Server di node Chisa:
 ```
 adduser -D phantom_user && echo "phantom_user:wired_ghost" | chpasswd
@@ -433,7 +433,7 @@ Hasil Analisis Wireshark:
 
 Kredensial terlihat jelas sebagai plain text. Setiap karakter terkirim dalam paket TCP yang terpisah karena Telnet beroperasi menggunakan Character Mode, di mana setiap input ketikan langsung dikirim ke server dan server merespons kembali (echo) ke layar client.
 
-### Soal 12
+### Soal 12 - Farrel
 1. Buka Wireshark dan gunakan filter TCP Port:
 ```
 ip.addr == <IP_NODE_KNIGHTS> && (tcp.port == 22 || tcp.port == 80 || tcp.port == 7777)
@@ -452,7 +452,7 @@ Port Terbuka (22 & 80): Server membalas paket inisiasi dengan flag [SYN, ACK].
 
 Port Tertutup (7777): Server langsung menolak koneksi karena tidak ada service yang berjalan, merespons dengan flag [RST, ACK].
 
-### Soal 13
+### Soal 13 - Farrel
 1. Matikan autentikasi password dan aktifkan Pubkey di node Knights:
 ```
 sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
@@ -475,7 +475,7 @@ Identifikasi Paket: Proses Protocol Version Exchange terjadi di awal, dilanjutka
 
 Keamanan Kredensial: Berbeda dengan Telnet, kredensial SSH aman karena autentikasi username/public key dilakukan setelah pembuatan saluran rahasia (Key Exchange), sehingga data dikirim dalam bentuk Encrypted packet.
 
-### Soal 14
+### Soal 14 - Elisabeth
 1. Download file `wired_bruteforce.pcapng` dan buka di Wireshark
 2. Apply filter `http`
 3. Cari paket dengan **status request login** dan berstatus **POST**, temukan dan catat IP Attacker dan IP beserta Port Victim  
@@ -485,7 +485,7 @@ Keamanan Kredensial: Berbeda dengan Telnet, kredensial SSH aman karena autentika
 Hasil Tes:  
 <img src="assets/Modul1_14Result.png" width="450">
 
-### Soal 15
+### Soal 15 - Elisabeth
 1. Download file `wired_usb_hid.pcap` dan buka di Wireshark
 2. Apply filter `usb`
 3. Cari paket berjenis GET DESCRIPTOR > USB Device Decriptor, temukan Vendor ID, Product ID, Nomor device USB
@@ -495,7 +495,7 @@ Hasil Tes:
 Hasil Tes:  
 <img src="assets/Modul1_15Result.png" width="450">
 
-### Soal 16
+### Soal 16 - Elisabeth
 1. Download file `wired_ftp_theft.pcap` dan buka di Wireshark
 2. Apply filter `ftp || ftp-data`
 3. Cari IP Attacker dengan Target dengan melihat isi paket file yang mencurigakan
@@ -508,7 +508,7 @@ Hasil Tes:
 Hasil Tes:  
 <img src="assets/Modul1_16Result.png" width="450">
 
-### Soal 17
+### Soal 17 - Elisabeth
 1. Download file `wired_http_c2.pcap` dan buka di Wireshark
 2. Apply filter `http.request.method == "GET"`
 3. Pilih packet berisi `GET > Cek Packet Details`, temukan IP Server Attacker
@@ -520,7 +520,7 @@ Hasil Tes:
 Hasil Tes:  
 <img src="assets/Modul1_17Result.png" width="450">
 
-### Soal 18
+### Soal 18 - Elisabeth
 1. Download file `wired_smb_transfer.pcapng` dan buka di Wireshark
 2. Apply filter `smb` atau `smb2`, temukan nama protokol yang dieksploitasi  
 3. Cek paket berstatus `Create Request` atau `Write Request`, temukan IP pengirim dan IP penerima  
@@ -530,7 +530,7 @@ Hasil Tes:
 Hasil Tes:  
 <img src="assets/Modul1_18Result.png" width="450">
 
-### Soal 19
+### Soal 19 - Elisabeth
 1. Download file `wired_smtp_threat.pcap` dan buka di Wireshark
 2. Apply filter `smtp`
 3. Pilih paket berisi DATA atau Subject > Follow > TCP Stream, temukan email korban
@@ -540,7 +540,7 @@ Hasil Tes:
 Hasil Tes:  
 <img src="assets/Modul1_19Result.png" width="450">
 
-### Soal 20
+### Soal 20 - Elisabeth
 1. Download file `wired_tls_decrypt.pcapng` dan buka di Wireshark
 2. Download file `.keyslog`
 3. Di Wireshark pilih Edit > Preferences > Protocol > TLS > File `.keyslog`
@@ -562,3 +562,4 @@ Hasil Tes:
 5. lanjutin kalo ada
 
 ## Revisi
+### Soal 8
