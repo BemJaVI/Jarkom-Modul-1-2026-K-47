@@ -611,9 +611,8 @@ ssh-copy-id mika_admin@10.87.3.2
  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 killall sshd && /usr/sbin/sshd
 ```
-3. 2. pada node mika (Membuat dan menanamkan kunci SSH ke Knights):
+3. 2. pada node mika (Menanamkan kunci SSH ke Knights):
 ```
-ssh-keygen -t rsa
 ssh-copy-id mika_admin@10.87.3.2
 ```
 lakukan login pakai password mika
