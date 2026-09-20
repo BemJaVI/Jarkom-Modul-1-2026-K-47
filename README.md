@@ -563,3 +563,30 @@ Hasil Tes:
 
 ## Revisi
 ### Soal 8
+
+
+### soal 11
+command yang harus dilakukan:
+1. Pada Node Chisa (Menjalankan ulang Telnet Server):
+```
+killall telnetd
+telnetd -l /bin/login
+```
+
+<img width="741" height="191" alt="image" src="https://github.com/user-attachments/assets/8e3616e2-76af-487f-aaed-82a978c80efa" />
+
+2. Pada Node Eiri (Mengirimkan kredensial):
+```
+echo -e "phantom_user\nwired_ghost\n" | telnet 10.87.2.2
+```
+
+<img width="656" height="70" alt="image" src="https://github.com/user-attachments/assets/639fe9f2-b46d-4768-8672-34ae5544d45a" />
+
+Hasil yang muncul:
+
+<img width="1919" height="1154" alt="image" src="https://github.com/user-attachments/assets/d508fe01-25e6-420b-8808-8d77c71c5f82" />
+
+Analisis:
+Berdasarkan tangkapan TCP Stream dari Wireshark, terbukti bahwa protokol Telnet sangat tidak aman karena mengirimkan username dan password (phantom_user dan wired_ghost) dalam bentuk plain text (teks terbuka) tanpa enkripsi sama sekali.
+
+Teks yang dikirimkan seringkali terlihat terpisah atau ganda karena Telnet beroperasi menggunakan Character Mode. Setiap kali ada karakter yang diinputkan oleh client (warna merah), karakter tersebut langsung dikirim dalam satu paket TCP, dan server akan merespons dengan menampilkan kembali karakter tersebut di layar client (warna biru).
